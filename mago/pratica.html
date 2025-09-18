@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <p> Valor: <input type=text id="valor1"> </p>
+    <p> Valor: <input type=text id="valor2"> </p>
+    <p><button onclick="Somar()">Somar</button></p>
+    <p id="soma"></p>
+
+    <script>
+        function Somar(){
+        var valor1 = parseFloat(document.getElementById("valor1").value);
+        var valor2 = parseFloat(document.getElementById("valor2").value);
+
+        var soma = valor1 + valor2;
+        if (soma>100){
+            document.getElementById("soma").innerHTML = "TA alto doidão refaz ai";
+        }else{
+            document.getElementById("soma").innerHTML = soma;
+        }
+        }
+    </script>
+</body>
+</html>

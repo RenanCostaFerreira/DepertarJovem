@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #peças-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #peças-list li {
+            margin: 8px 0;
+            font-size: 18px;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    <h1>Lista de Peças de Computador</h1>
+    
+    <!-- Botão para ordenar a lista -->
+    <button onclick="sortPeças()">Ordenar Alfabéticamente</button>
+
+    <ul id="peças-list"></ul>
+
+    <script>
+        var pecasList = [];
+
+        // Função para carregar as peças com AJAX
+        function loadPeças() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'pecas.php', true); // A URL do arquivo PHP
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    try {
+                        // Convertendo a resposta para um array
+                        pecasList = JSON.parse(xhr.responseText);
+                        // Exibindo as peças
+                        displayPeças(pecasList);
+                    } catch (e) {
+                        console.error('Erro ao processar os dados JSON', e);
+                    }
+                }
+            };
+
+            xhr.send();
+        }
+
+        // Função para exibir as peças na lista
+        function displayPeças(pecas) {
+            var lista = document.getElementById('peças-list');
+            lista.innerHTML = ''; // Limpar a lista antes de adicionar novos itens
+
+            pecas.forEach(function(peca) {
+                var li = document.createElement('li');
+                li.textContent = peca;
+                lista.appendChild(li);
+            });
+        }
+
+        // Função para ordenar a lista de peças
+        function sortPeças() {
+            // Ordenando a lista de peças em ordem alfabética
+            pecasList.sort();
+            // Atualizando a exibição com a lista ordenada
+            displayPeças(pecasList);
+        }
+
+        // Carregar as peças assim que a página carregar
+        window.onload = loadPeças;
+    </script>
+</body>
+</html>
